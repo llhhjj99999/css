@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>3D螺旋轮播</title>
+    <style>
+        *{
+            margin: 0;padding: 0;
+        }
+        .slider{
+            /*border: 1px solid red;*/
+            width: 600px;
+            height: 300px;
+            margin: 150px auto;
+            position: relative;
+        }
+        /*.slider-outer{*/
+            /*-webkit-transform-style: preserve-3d;*/
+            /*-moz-transform-style: preserve-3d;*/
+            /*-ms-transform-style: preserve-3d;*/
+            /*transform-style: preserve-3d;*/
+            /*transform: rotateY(30deg) rotateX(30deg);*/
+        /*}*/
+        .slider-outer,.slider-item,.img{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+        .slider-item{
+            -webkit-transform-style: preserve-3d;
+            -moz-transform-style: preserve-3d;
+            -ms-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            transition: 2s;
+            width: 100px;
+        }
+        .img:nth-child(1){
+            background-image: url("images/1.webp");
+            transform: rotateX(0deg) translateZ(150px);
+        }
+        .img:nth-child(2){
+            background-image: url("images/2.webp");
+            transform: rotateX(90deg) translateZ(150px);
+        }
+        .img:nth-child(3){
+            background-image: url("images/3.webp");
+            transform: rotateX(180deg) translateZ(150px);
+        }
+        .img:nth-child(4){
+            background-image: url("images/4.webp");
+            transform: rotateX(270deg) translateZ(150px);
+        }
+        .btn{
+            font-size: 32px;
+            color: #ffffff;
+            height: 50px;
+            width: 100%;
+            position: absolute;
+            top: calc(50% - 25px);
+        }
+        .prev,.next{
+            background: rgba(0,0,0,.3);
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            text-align: center;
+        }
+        .next{
+            right: 0;
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+<div class="slider">
+    <div class="slider-outer">
+        <div class="slider-item">
+            <div class="img"></div>
+            <div class="img"></div>
+            <div class="img"></div>
+            <div class="img"></div>
+        </div>
+        <div class="slider-item">
+            <div class="img"></div>
+            <div class="img"></div>
+            <div class="img"></div>
+            <div class="img"></div>
+        </div>
+        <div class="slider-item">
+            <div class="img"></div>
+            <div class="img"></div>
+            <div class="img"></div>
+            <div class="img"></div>
+        </div>
+        <div class="slider-item">
+            <div class="img"></div>
+            <div class="img"></div>
+            <div class="img"></div>
+            <div class="img"></div>
+        </div>
+        <div class="slider-item">
+            <div class="img"></div>
+            <div class="img"></div>
+            <div class="img"></div>
+            <div class="img"></div>
+        </div>
+        <div class="slider-item">
+            <div class="img"></div>
+            <div class="img"></div>
+            <div class="img"></div>
+            <div class="img"></div>
+        </div>
+    </div>
+    <div class="btn">
+        <div class="prev" id="prev">&lt;</div>
+        <div class="next" id="next">&gt;</div>
+    </div>
+
+</div>
+</body>
+<script>
+    var items=document.getElementsByClassName("slider-item");
+    var num=0;
+    for(var i=0;i<items.length;i++){
+        var item=items[i];
+        var itemWidth=item.offsetWidth;
+        item.style.left=itemWidth*i+"px";
+        item.style.transitionDelay=.2*i+"s";
+        var imgs=item.children;
+        for(var j=0;j<imgs.length;j++){
+            var img=imgs[j];
+            img.style.backgroundPosition=-itemWidth*i+"px";
+        }
+    }
+    document.getElementById("prev").addEventListener("click",function(e){
+        var rotate=++num*90;
+        for(var i=0;i<items.length;i++) {
+            items[i].style.transform = "rotateX(" + rotate + "deg)";
+        }
+    });
+    document.getElementById("next").addEventListener("click",function(e){
+        var rotate=--num*90;
+        for(var i=0;i<items.length;i++) {
+            items[i].style.transform = "rotateX(" + rotate + "deg)";
+        }
+    });
+    function rotate(){
+        var rotate=--num*90;
+        for(var i=0;i<items.length;i++) {
+            items[i].style.transform = "rotateX(" + rotate + "deg)";
+        }
+        setTimeout("rotate()",5000);
+    }
+    window.onload=rotate;
+
+
+
+
+
+</script>
+</html>
